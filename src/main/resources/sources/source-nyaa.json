@@ -1,0 +1,28 @@
+{
+  "id": "nyaa",
+  "name": "Nyaa",
+  "url": "https://nyaa.si/?page=rss",
+  "scheduled": {
+    "cron": "*/5 * * * * ?"
+  },
+  "nameAttrId": "title",
+  "itemSelector": "rss channel item",
+  "attrs": [
+    {
+      "id": "title",
+      "type": "TEXT",
+      "selector": "title"
+    },
+    {
+      "id": "link",
+      "type": "TEXT",
+      "selector": "link"
+    },
+    {
+      "id": "pubDate",
+      "type": "DATE",
+      "format": "EEE, dd MMM yyyy HH:mm:ss Z",
+      "selector": "pubDate"
+    }
+  ]
+}

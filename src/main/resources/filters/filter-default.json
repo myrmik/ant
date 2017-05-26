@@ -1,0 +1,20 @@
+{
+  "id": "default",
+  "filters": [
+    {
+      "id": "titleIncludeFilter",
+      "type": "TEXT",
+      "initial": "visible"
+    },
+    {
+      "id": "titleExcludeFilter",
+      "type": "TEXT",
+      "initial": "hidden"
+    },
+    {
+      "id": "quality",
+      "type": "TEXT",
+      "initial": "hidden"
+    }
+  ]
+}
