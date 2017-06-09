@@ -10,6 +10,6 @@ public class WebConfig {
 
     @Bean
     public UserContext userContext(HttpSession httpSession) {
-        return new UserContext(httpSession);
+        return new UserContextStub();
     }
 }

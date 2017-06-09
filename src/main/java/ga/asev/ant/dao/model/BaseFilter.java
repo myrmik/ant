@@ -1,6 +1,6 @@
 package ga.asev.ant.dao.model;
 
-public abstract class BaseFilter<T> implements Filter<T> {
+public abstract class BaseFilter implements Filter {
     private String attrId;
 
     public String getAttrId() {

@@ -3,7 +3,7 @@
   "name": "Nyaa",
   "url": "https://nyaa.si/?page=rss",
   "scheduled": {
-    "cron": "*/5 * * * * ?"
+    "cron": "*/20 * * * * ?"
   },
   "nameAttrId": "title",
   "itemSelector": "rss channel item",

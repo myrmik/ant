@@ -18,6 +18,8 @@ public class SourceUpdater {
     }
 
     public void updateSource(Source source) {
+        log.info("****** Start source update, name: " + source.getName() + ", url: "+ source.getUrl()
+                + ", cron: " + source.getScheduled().getCron());
         Document document = getDocument(source);
         if (document == null) {
             return;

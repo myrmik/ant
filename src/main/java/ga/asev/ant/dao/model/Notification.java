@@ -8,7 +8,7 @@ import java.util.List;
 @Document
 @Data
 public class Notification {
-    private Long id;
-    private Long userId;
+    private String id;
+    private String userId;
     private List<NotificationItem> items;
 }

@@ -5,6 +5,7 @@ import ga.asev.ant.dao.model.NotificationItem;
 import ga.asev.ant.dao.repository.NotificationRepository;
 import ga.asev.ant.rule.model.NotificationUpdateEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.data.domain.Example;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,8 +34,10 @@ public class NotificationApplier {
         notificationRepository.save(notification);
     }
 
-    private Notification getUserNotification(Long userId) {
-        Notification result = notificationRepository.findOne(userId);
+    private Notification getUserNotification(String userId) {
+        Notification probe = new Notification();
+        probe.setUserId(userId);
+        Notification result = notificationRepository.findOne(Example.of(probe));
         return result == null ? new Notification() : result;
     }
 

@@ -11,10 +11,10 @@ import java.util.Map;
 @Document
 @Data
 public class Rule {
-    private Long id;
-    private Long userId;
+    private String id;
+    private String userId;
     private String sourceId;
-    private List<Filter> filters = new ArrayList<>();
+    private List<RegexFilter> filters = new ArrayList<>();
 
     public boolean matches(Map<String, SourceAttrValue> attributes) {
         return filters.stream().allMatch(filter -> {

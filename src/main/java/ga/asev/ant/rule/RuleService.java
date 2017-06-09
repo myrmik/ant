@@ -22,7 +22,7 @@ public class RuleService {
         ruleRepository.delete(ruleId);
     }
 
-    public List<Rule> getUserRules(Long userId) {
+    public List<Rule> getUserRules(String userId) {
         Rule probe = new Rule();
         probe.setUserId(userId);
         return ruleRepository.findAll(Example.of(probe));
@@ -34,7 +34,7 @@ public class RuleService {
         return ruleRepository.findAll(Example.of(probe));
     }
 
-    public List<Rule> getRules(Long userId, String sourceId) {
+    public List<Rule> getRules(String userId, String sourceId) {
         Rule probe = new Rule();
         probe.setUserId(userId);
         probe.setSourceId(sourceId);

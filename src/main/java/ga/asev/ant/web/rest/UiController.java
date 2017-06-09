@@ -6,6 +6,8 @@ import ga.asev.ant.dao.model.User;
 import ga.asev.ant.notification.NotificationService;
 import ga.asev.ant.rule.RuleService;
 import ga.asev.ant.web.UserContext;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +30,9 @@ public class UiController {
         this.userContext = userContext;
     }
 
-    @RequestMapping(path = "/rule", method = POST)
-    public void addRule(Rule rule) {
+    @RequestMapping(path = "/rule", method = POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    public void addRule(@RequestBody Rule rule) {
         ruleService.addRule(rule);
     }
 

@@ -10,7 +10,7 @@ import static ga.asev.ant.source.model.SourceAttrValue.emptySourceAttrValue;
 
 @Data
 public class NotificationUpdateEvent {
-    private Long userId;
+    private String userId;
     private String sourceId;
     private Map<String, SourceAttrValue> attributes = new HashMap<>();
 

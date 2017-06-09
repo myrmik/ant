@@ -1,6 +1,6 @@
 package ga.asev.ant.dao.model;
 
-public interface Filter<T> {
+public interface Filter {
     String getAttrId();
-    boolean matches(T attrValue);
+    boolean matches(Object attrValue);
 }
