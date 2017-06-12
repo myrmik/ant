@@ -17,10 +17,25 @@ public class NotificationService {
         this.notificationRepository = notificationRepository;
     }
 
-    public List<NotificationItem> getUserNotifications(String userId) {
+    public Notification getUserNotifications(String userId) {
         Notification probe = new Notification();
         probe.setUserId(userId);
+        probe.setItems(null);
         Notification notification = notificationRepository.findOne(Example.of(probe));
-        return notification == null ? emptyList() : notification.getItems();
+        if (notification != null) {
+            return notification;
+        }
+
+        Notification emptyNotification = new Notification();
+        emptyNotification.setUserId(userId);
+        return emptyNotification;
+    }
+
+    public Notification saveNotification(Notification notification) {
+        return notificationRepository.save(notification);
+    }
+
+    public void deleteNotification(String notificationId) {
+        notificationRepository.delete(notificationId);
     }
 }

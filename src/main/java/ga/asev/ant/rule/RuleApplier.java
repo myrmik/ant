@@ -4,11 +4,13 @@ import ga.asev.ant.dao.model.Rule;
 import ga.asev.ant.rule.model.NotificationUpdateEvent;
 import ga.asev.ant.source.model.SourceUpdateEvent;
 import ga.asev.ant.web.UserContext;
+import lombok.extern.java.Log;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 
 import java.util.List;
 
+@Log
 public class RuleApplier {
     private final ApplicationEventPublisher publisher;
     private final RuleService ruleService;

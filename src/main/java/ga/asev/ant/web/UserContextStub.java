@@ -10,7 +10,7 @@ public class UserContextStub implements UserContext {
 
     public UserContextStub() {
         userStub = new User();
-        userStub.setId("user id");
+        userStub.setId("1");
         userStub.setName("User");
     }
 

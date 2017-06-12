@@ -12,7 +12,7 @@ public class NotificationConfig {
     }
 
     @Bean
-    public NotificationApplier notificationApplier(NotificationRepository notificationRepository) {
-        return new NotificationApplier(notificationRepository);
+    public NotificationApplier notificationApplier(NotificationService notificationService) {
+        return new NotificationApplier(notificationService);
     }
 }

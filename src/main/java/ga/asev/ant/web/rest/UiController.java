@@ -1,5 +1,6 @@
 package ga.asev.ant.web.rest;
 
+import ga.asev.ant.dao.model.Notification;
 import ga.asev.ant.dao.model.NotificationItem;
 import ga.asev.ant.dao.model.Rule;
 import ga.asev.ant.dao.model.User;
@@ -31,13 +32,12 @@ public class UiController {
     }
 
     @RequestMapping(path = "/rule", method = POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-
     public void addRule(@RequestBody Rule rule) {
         ruleService.addRule(rule);
     }
 
     @RequestMapping(path = "/rule", method = DELETE)
-    public void deleteRule(Long ruleId) {
+    public void deleteRule(String ruleId) {
         ruleService.deleteRule(ruleId);
     }
 
@@ -47,10 +47,17 @@ public class UiController {
         return ruleService.getUserRules(user.getId());
     }
 
+
+
     @RequestMapping(path = "/user/notifications")
-    public List<NotificationItem> getUserNotifications() {
+    public Notification getUserNotifications() {
         User user = userContext.getUser();
         return notificationService.getUserNotifications(user.getId());
+    }
+
+    @RequestMapping(path = "/user/notification", method = DELETE)
+    public void deleteNotification(String notificationId) {
+        notificationService.deleteNotification(notificationId);
     }
 
 }

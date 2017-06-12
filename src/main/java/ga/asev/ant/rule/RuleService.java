@@ -18,19 +18,21 @@ public class RuleService {
         ruleRepository.insert(rule);
     }
 
-    public void deleteRule(Long ruleId) {
+    public void deleteRule(String ruleId) {
         ruleRepository.delete(ruleId);
     }
 
     public List<Rule> getUserRules(String userId) {
         Rule probe = new Rule();
         probe.setUserId(userId);
+        probe.setFilters(null);
         return ruleRepository.findAll(Example.of(probe));
     }
 
     public List<Rule> getSourceRules(String sourceId) {
         Rule probe = new Rule();
         probe.setSourceId(sourceId);
+        probe.setFilters(null);
         return ruleRepository.findAll(Example.of(probe));
     }
 
@@ -38,6 +40,7 @@ public class RuleService {
         Rule probe = new Rule();
         probe.setUserId(userId);
         probe.setSourceId(sourceId);
+        probe.setFilters(null);
         return ruleRepository.findAll(Example.of(probe));
     }
 }

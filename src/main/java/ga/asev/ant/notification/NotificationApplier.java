@@ -9,20 +9,18 @@ import org.springframework.data.domain.Example;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 public class NotificationApplier {
     private static final int FEED_SIZE = 100;
 
-    private NotificationRepository notificationRepository;
+    private NotificationService notificationService;
 
-    public NotificationApplier(NotificationRepository notificationRepository) {
-        this.notificationRepository = notificationRepository;
+    public NotificationApplier(NotificationService notificationService) {
+        this.notificationService = notificationService;
     }
 
     @EventListener
@@ -31,14 +29,11 @@ public class NotificationApplier {
         notification.setUserId(event.getUserId());
         notification.getItems().add(toNotificationItem(event));
         clearExtraItems(notification);
-        notificationRepository.save(notification);
+        notificationService.saveNotification(notification);
     }
 
     private Notification getUserNotification(String userId) {
-        Notification probe = new Notification();
-        probe.setUserId(userId);
-        Notification result = notificationRepository.findOne(Example.of(probe));
-        return result == null ? new Notification() : result;
+        return notificationService.getUserNotifications(userId);
     }
 
     private void clearExtraItems(Notification notification) {
@@ -46,10 +41,10 @@ public class NotificationApplier {
             return;
         }
 
-        List<NotificationItem> cleared = notification.getItems().stream()
+        Set<NotificationItem> cleared = notification.getItems().stream()
                 .sorted((o1, o2) -> o2.getPubDate().compareTo(o1.getPubDate()))
                 .limit(FEED_SIZE)
-                .collect(toList());
+                .collect(toSet());
         notification.setItems(cleared);
     }
 
