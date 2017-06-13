@@ -14,4 +14,10 @@ public class Notification {
     private String id;
     private String userId;
     private Set<NotificationItem> items = new HashSet<>();
+
+    public static Notification emptyNotification() {
+        Notification notification = new Notification();
+        notification.setItems(null);
+        return notification;
+    }
 }

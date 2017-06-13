@@ -27,9 +27,13 @@ public class NotificationApplier {
     public void onNotification(NotificationUpdateEvent event) {
         Notification notification = getUserNotification(event.getUserId());
         notification.setUserId(event.getUserId());
-        notification.getItems().add(toNotificationItem(event));
-        clearExtraItems(notification);
-        notificationService.saveNotification(notification);
+
+        NotificationItem newItem = toNotificationItem(event);
+        if (!notification.getItems().contains(newItem)) {
+            notification.getItems().add(newItem);
+            clearExtraItems(notification);
+            notificationService.saveNotification(notification);
+        }
     }
 
     private Notification getUserNotification(String userId) {
@@ -53,6 +57,7 @@ public class NotificationApplier {
         item.setTitle(toStr(event.getAttrValue("title")));
         item.setLink(toStr(event.getAttrValue("link")));
         item.setPubDate(toDate(event.getAttrValue("pubDate")));
+        item.setRuleId(event.getRuleId());
         return item;
     }
 

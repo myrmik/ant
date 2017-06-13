@@ -7,6 +7,8 @@ import org.springframework.data.domain.Example;
 
 import java.util.List;
 
+import static ga.asev.ant.dao.model.Rule.emptyRule;
+
 public class RuleService {
     private RuleRepository ruleRepository;
 
@@ -23,24 +25,25 @@ public class RuleService {
     }
 
     public List<Rule> getUserRules(String userId) {
-        Rule probe = new Rule();
+        Rule probe = emptyRule();
         probe.setUserId(userId);
-        probe.setFilters(null);
         return ruleRepository.findAll(Example.of(probe));
     }
 
     public List<Rule> getSourceRules(String sourceId) {
-        Rule probe = new Rule();
+        Rule probe = emptyRule();
         probe.setSourceId(sourceId);
-        probe.setFilters(null);
         return ruleRepository.findAll(Example.of(probe));
     }
 
     public List<Rule> getRules(String userId, String sourceId) {
-        Rule probe = new Rule();
+        Rule probe = emptyRule();
         probe.setUserId(userId);
         probe.setSourceId(sourceId);
-        probe.setFilters(null);
         return ruleRepository.findAll(Example.of(probe));
+    }
+
+    public void saveRules(List<Rule> rules) {
+        ruleRepository.save(rules);
     }
 }

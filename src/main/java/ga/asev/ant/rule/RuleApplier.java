@@ -3,12 +3,13 @@ package ga.asev.ant.rule;
 import ga.asev.ant.dao.model.Rule;
 import ga.asev.ant.rule.model.NotificationUpdateEvent;
 import ga.asev.ant.source.model.SourceUpdateEvent;
-import ga.asev.ant.web.UserContext;
 import lombok.extern.java.Log;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Log
 public class RuleApplier {
@@ -24,9 +25,15 @@ public class RuleApplier {
     public void onNewSourceItem(SourceUpdateEvent event) {
         List<Rule> rules = ruleService.getSourceRules(event.getSourceId());
 
-        rules.stream()
+        List<Rule> matchedRules = rules.stream()
                 .filter(rule -> rule.matches(event.getAttributes()))
-                .forEach(rule -> publishNotification(event, rule));
+                .collect(toList());
+
+        publishNotifications(event, matchedRules);
+    }
+
+    private void publishNotifications(SourceUpdateEvent event, List<Rule> matchedRules) {
+        matchedRules.forEach(rule -> publishNotification(event, rule));
     }
 
     private void publishNotification(SourceUpdateEvent event, Rule rule) {
@@ -34,6 +41,7 @@ public class RuleApplier {
         notificationEvent.setUserId(rule.getUserId());
         notificationEvent.setSourceId(rule.getSourceId());
         notificationEvent.setAttributes(event.getAttributes());
+        notificationEvent.setRuleId(rule.getId());
         publisher.publishEvent(notificationEvent);
     }
 }

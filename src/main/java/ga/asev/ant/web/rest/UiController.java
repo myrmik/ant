@@ -8,6 +8,7 @@ import ga.asev.ant.notification.NotificationService;
 import ga.asev.ant.rule.RuleService;
 import ga.asev.ant.web.UserContext;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,10 +37,17 @@ public class UiController {
         ruleService.addRule(rule);
     }
 
-    @RequestMapping(path = "/rule", method = DELETE)
-    public void deleteRule(String ruleId) {
+    @RequestMapping(path = "/rule/{ruleId}", method = DELETE)
+    public void deleteRule(@PathVariable String ruleId) {
         ruleService.deleteRule(ruleId);
     }
+
+    @RequestMapping(path = "/rule/{ruleId}/notifications")
+    public Notification getRuleNotifications(@PathVariable String ruleId) {
+        User user = userContext.getUser();
+        return notificationService.getRuleNotifications(user.getId(), ruleId);
+    }
+
 
     @RequestMapping(path = "/user/rules")
     public List<Rule> getUserRules() {
@@ -47,16 +55,14 @@ public class UiController {
         return ruleService.getUserRules(user.getId());
     }
 
-
-
     @RequestMapping(path = "/user/notifications")
     public Notification getUserNotifications() {
         User user = userContext.getUser();
         return notificationService.getUserNotifications(user.getId());
     }
 
-    @RequestMapping(path = "/user/notification", method = DELETE)
-    public void deleteNotification(String notificationId) {
+    @RequestMapping(path = "/user/notification/{notificationId}", method = DELETE)
+    public void deleteNotification(@PathVariable String notificationId) {
         notificationService.deleteNotification(notificationId);
     }
 

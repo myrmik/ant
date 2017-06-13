@@ -12,6 +12,7 @@ import static ga.asev.ant.source.model.SourceAttrValue.emptySourceAttrValue;
 public class NotificationUpdateEvent {
     private String userId;
     private String sourceId;
+    private String ruleId;
     private Map<String, SourceAttrValue> attributes = new HashMap<>();
 
     public Object getAttrValue(String attrId) {
