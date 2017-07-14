@@ -8,8 +8,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @Log
-public class JsonUtil {
+public final class JsonUtil {
     private static ObjectMapper mapper = new ObjectMapper();
+
+    private JsonUtil() {
+    }
 
     public static <T> T fromJson(Path path, Class<T> type) {
         try {

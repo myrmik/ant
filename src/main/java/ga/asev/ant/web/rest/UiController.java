@@ -8,17 +8,16 @@ import ga.asev.ant.notification.NotificationService;
 import ga.asev.ant.rule.RuleService;
 import ga.asev.ant.web.UserContext;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class UiController {
 
     private RuleService ruleService;
@@ -43,9 +42,9 @@ public class UiController {
     }
 
     @RequestMapping(path = "/rule/{ruleId}/notifications")
-    public Notification getRuleNotifications(@PathVariable String ruleId) {
+    public Set<NotificationItem> getRuleNotifications(@PathVariable String ruleId) {
         User user = userContext.getUser();
-        return notificationService.getRuleNotifications(user.getId(), ruleId);
+        return notificationService.getRuleNotifications(user.getId(), ruleId).getItems();
     }
 
 
@@ -56,9 +55,9 @@ public class UiController {
     }
 
     @RequestMapping(path = "/user/notifications")
-    public Notification getUserNotifications() {
+    public Set<NotificationItem> getUserNotifications() {
         User user = userContext.getUser();
-        return notificationService.getUserNotifications(user.getId());
+        return notificationService.getUserNotifications(user.getId()).getItems();
     }
 
     @RequestMapping(path = "/user/notification/{notificationId}", method = DELETE)

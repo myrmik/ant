@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static ga.asev.ant.util.DateUtil.toDate;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
@@ -59,11 +60,6 @@ public class NotificationApplier {
         item.setPubDate(toDate(event.getAttrValue("pubDate")));
         item.setRuleId(event.getRuleId());
         return item;
-    }
-
-    private Date toDate(Object value) {
-        DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-        return  (Date) value;
     }
 
     private String toStr(Object value) {

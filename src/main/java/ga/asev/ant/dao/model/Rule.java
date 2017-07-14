@@ -16,6 +16,7 @@ public class Rule {
     private String userId;
     private String sourceId;
     private String name;
+    private Date pubDate;
     private List<RegexFilter> filters = new ArrayList<>();
 
     public boolean matches(Map<String, SourceAttrValue> attributes) {

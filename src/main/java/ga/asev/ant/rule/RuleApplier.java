@@ -9,6 +9,7 @@ import org.springframework.context.event.EventListener;
 
 import java.util.List;
 
+import static ga.asev.ant.util.DateUtil.toDate;
 import static java.util.stream.Collectors.toList;
 
 @Log
@@ -29,11 +30,18 @@ public class RuleApplier {
                 .filter(rule -> rule.matches(event.getAttributes()))
                 .collect(toList());
 
+        updateRules(event, matchedRules);
+
         publishNotifications(event, matchedRules);
     }
 
-    private void publishNotifications(SourceUpdateEvent event, List<Rule> matchedRules) {
-        matchedRules.forEach(rule -> publishNotification(event, rule));
+    private void updateRules(SourceUpdateEvent event, List<Rule> rules) {
+        rules.forEach(rule -> rule.setPubDate(toDate(event.getAttrValue("pubDate"))));
+        ruleService.saveRules(rules);
+    }
+
+    private void publishNotifications(SourceUpdateEvent event, List<Rule> rules) {
+        rules.forEach(rule -> publishNotification(event, rule));
     }
 
     private void publishNotification(SourceUpdateEvent event, Rule rule) {
